@@ -1,0 +1,54 @@
+Step1: Create 2 folders as data1 and data2
+Step2: Create 3 folders in these folders as db, log and config
+Step3: Open config folder and create config file with the name as mongo.cfg in ths file we need to set 3 values. And in log folder create mongod.log file.
+dbpath=C:\data1\db\path
+ logpath=C:\data1\log\mongod.log
+port=27020
+Step4: Copy these folders in data2 folder and edit the config file under the config folder
+dbpath=C:\data2\db\path
+ logpath=C:\data2\log\mongod.log
+port=27021
+Step5: Stop the mongodb server services from services.msc file
+Step6: Open cmd in admin mode abd set the path of mongodb bin folder  and type the following command: 
+a)	cd C:\Program Files\MongoDB\Server\5.0\bin
+b)	mongod --dbpath "C:\Program Files\MongoDB\Server\5.0\data" --logpath "C:\Program Files\MongoDB\Server\5.0\log\mongod.log" --port 27017 --storageEngine=wiredTiger --journal --replSet myreplica
+ 
+Step7: Open another cmd and type followind command:
+	mongo –-port 27017
+  
+
+Step8: Adding primary server to the replica set type following command
+	rsconf={_id:"myreplica",members:[{_id:0,host:"localhost:27017"}]}
+Step9:Now initiate the replicaset
+rs.initiate(rsconf)
+
+
+we will have the replicaset with other server to get primary server under the replicaset press enter one more time. To check whether the primary has all databases we will run show dbs command.
+ 
+Step10: Now we need to set the secondary server for this we need to create new cmd in admin mode. The Path of this cmd would be bin folder of mongodb. After that type the following command:
+>mongod --dbpath "C:\data1\db" --logpath "C:\data1\log\mongod.log" --port 27020 --storageEngine=wiredTiger --journal --replSet myreplica
+ 
+Repeat the same procedure for second secondary server.And type following command:
+mongod --dbpath "C:\data2\db" --logpath "C:\data2\log\mongod.log" --port 27021 --storageEngine=wiredTiger --journal --replSet myreplica
+ 
+Step11: Adding secondary servers in primary server. Go to cmd of primary server and type following command: rs.add(“localhost:27020”)
+	For checking the status execute: rs.status()
+	 
+   
+Now add the second secondary server by following command:rs.add(“localhost:27021”)
+ 
+Step12: Now open new cmd in admin mode and connect with the first secondary server
+ 
+To get the databases of the primary server we need to run the following command in the cmd
+	rs.secondaryOk() and then run show dbs command
+ 
+
+
+
+
+
+Step13: open new cmd in admin mode and connect second secondary server through port number.
+ 
+ 
+Now we can access all the data of the primary server in the secondary server:
+ 

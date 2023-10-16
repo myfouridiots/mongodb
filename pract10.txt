@@ -1,0 +1,84 @@
+pract10
+
+1.create json
+
+<!DOCTYPE.html>
+<html>
+    <head>
+        <title>Creating JSON</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var data={
+                "Name":"kalyani",
+                "Course":"BSCIT",
+                "Subject":"BDNS",
+                "RollNo":239740,
+            }
+            document.writeln(JSON.stringify(data)+"<br/>");
+
+            document.writeln(JSON.stringify(data,["Name","Course","RollNo"])+"<br/>");
+
+            document.writeln(JSON,stringify(data,["Nme","Course","RollNo"],5));
+            </script>
+    </body>
+</html>
+
+
+2.parsing json
+
+
+<html>
+<head>
+<title>Parsing</title>
+</head>
+<body>
+<script type="text/javascript">
+               var data='{"name":"sarvesh","sem":239733,"type":"Prog"}';
+	var json_obj=JSON.parse(data,function(name,value)
+	{
+		return value;
+	});
+	document.writeln(json_obj.name);
+	for(key in json_obj)
+	{
+		document.write("</br>"+key+":"+json_obj[key]);
+	}
+	var json_obj=JSON.parse(data,function(name,value)
+	{
+		if(name=="sem")
+		{
+			return undefind;
+		}
+		else
+		{
+			return value;
+		}
+	}
+);
+for(key in json_obj)
+{
+	document.write("</br>"+key+";"+json_obj[key]);
+}
+</script>
+</body>
+</html>
+
+3.create json
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Creating JSON</title>
+</head>
+<body>
+<script type="text/javascript">
+var data1='{"name":"mohni","class":"Tyit"}';
+var docx=JSON.parse(data1);
+for(key in docx)
+{
+	document.writeln(key+":"+docx[key]+"<br/>");
+}
+</script>
+</body>
+</html>
